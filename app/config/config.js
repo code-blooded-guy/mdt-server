@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
@@ -15,12 +17,12 @@ module.exports = {
       max: 5,
       min: 0,
       acquire: 30000,
-      idle: 10000
-    }
+      idle: 10000,
+    },
   },
 
   /** AUTH KEY */
   auth: {
-    secret: "our-secret-key"
-  }
+    secret: "our-secret-key",
+  },
 };

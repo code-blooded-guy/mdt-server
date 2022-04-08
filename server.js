@@ -6,7 +6,7 @@ const config = require("./app/config/config.js");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
 };
 
 app.use(cors(corsOptions));
@@ -26,7 +26,7 @@ db.sequelize.sync().then(() => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Hi there, welcome to this tutorial." });
+  res.json({ message: "Hi there, welcome to MDT Server." });
 });
 
 // api routes
@@ -44,16 +44,16 @@ app.listen(PORT, () => {
 function initial() {
   Role.create({
     id: 1,
-    name: "user"
+    name: "user",
   });
 
   Role.create({
     id: 2,
-    name: "moderator"
+    name: "moderator",
   });
 
   Role.create({
     id: 3,
-    name: "admin"
+    name: "admin",
   });
 }
