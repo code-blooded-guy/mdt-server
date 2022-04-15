@@ -142,6 +142,8 @@ exports.signin = (req, res) => {
           first_name: user.first_name,
           last_name: user.last_name,
           isVerified: user.isVerified,
+          plan: user.plan ? user.plan : "No active plans",
+          isSubscribed: user.isSubscribed,
           roles: authorities,
           accessToken: token,
         });
