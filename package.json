@@ -23,9 +23,13 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fyers-api": "^1.1.0",
+    "fyers-api-v2": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.3"
+    "nodemailer": "^6.7.3",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

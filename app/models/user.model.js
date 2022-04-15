@@ -24,6 +24,20 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
       },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      isSubscribed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      plan: {
+        type: DataTypes.STRING,
+      },
+      otp: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       // Options

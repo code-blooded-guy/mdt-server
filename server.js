@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("./app/config/config.js");
 
+const fyers = require("fyers-api-v2");
+
 const app = express();
 
 const corsOptions = {
@@ -29,8 +31,31 @@ app.get("/", (req, res) => {
   res.json({ message: "Hi there, welcome to MDT Server." });
 });
 
+app.get("/get-token", (req, res) => {
+  let app_secret = "1W12NWTXPQ";
+  let app_id = "3KDENVCVTW-100";
+  let redirect_url = "http://localhost:3001/auth_code";
+  // fyers.setAppId(app_id);
+  // fyers.setRedirectUrl("http://localhost:3001/token");
+  let url =
+    "https://api.fyers.in/api/v2/generate-authcode?client_id=" +
+    app_id +
+    "&redirect_uri=" +
+    redirect_url +
+    "&response_type=code&state=sample_state";
+  // let url = fyers.generateAuthCode();
+  res.redirect(url);
+});
+
+app.get("/auth_code", function (req, res) {
+  let result = {
+    auth_code: req.query.auth_code,
+  };
+  res.json(result);
+});
+
 // api routes
-require("./app/routes/book.routes")(app);
+require("./app/routes/fyers.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
