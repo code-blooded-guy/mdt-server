@@ -8,13 +8,13 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return Promise.all([
-      queryInterface.changeColumn("angles", "userId", {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      }),
-    ]);
+    // return Promise.all([
+    //   queryInterface.changeColumn("angles", "userId", {
+    //     type: Sequelize.STRING,
+    //     allowNull: false,
+    //     unique: true,
+    //   }),
+    // ]);
   },
 
   async down(queryInterface, Sequelize) {
