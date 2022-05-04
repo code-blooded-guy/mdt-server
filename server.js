@@ -4,6 +4,9 @@ const cors = require("cors");
 const config = require("./app/config/config.js");
 
 const fyers = require("fyers-api-v2");
+// const socket = require("socket.io");
+const http = require("http");
+const { socketConnection } = require("./utils/socket-io");
 
 const app = express();
 
@@ -47,7 +50,7 @@ app.get("/get-token", (req, res) => {
   res.redirect(url);
 });
 
-app.get("/auth_code", function (req, res) {
+app.get("/test/auth_code", function (req, res) {
   let result = {
     auth_code: req.query.auth_code,
   };
@@ -55,15 +58,45 @@ app.get("/auth_code", function (req, res) {
 });
 
 // api routes
+require("./app/routes/angle.routes")(app);
 require("./app/routes/fyers.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
 const PORT = config.PORT;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// const server = http.createServer(app);
+socketConnection(server);
+
+// Socket setup
+// const io = socket(server);
+
+// const activeUsers = new Set();
+
+// io.on("connection", function (socket) {
+//   console.log("Made socket connection");
+//   socket.emit("welcome", { message: "Welcome!", id: socket.id });
+//   socket.on("user", function (data) {
+//     console.log("new socket user", data);
+//     socket.userId = data;
+//     activeUsers.add(data);
+//     io.emit("user", [...activeUsers]);
+//   });
+
+//   socket.on("disconnect", () => {
+//     activeUsers.delete(socket.userId);
+//     io.emit("user disconnected", socket.userId);
+//   });
+
+//   socket.on("my message", function (data) {
+//     console.log(data);
+//     io.emit("my message", data);
+//   });
+// });
 
 // Just use it in development, at the first time execution!. Delete it in production
 function initial() {
@@ -82,3 +115,5 @@ function initial() {
     name: "admin",
   });
 }
+
+// module.exports = io;

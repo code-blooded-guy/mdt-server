@@ -2,6 +2,11 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config.js");
 const db = require("../models");
 const User = db.user;
+// app_secret = 'your_app_secret'
+
+// let reqBody = { "app_id": app_id, "secret_key": app_secret };
+
+// let result = fyers.auth(reqBody)
 
 verifyToken = (req, res, next) => {
   // console.log("verifyToken", req.headers);

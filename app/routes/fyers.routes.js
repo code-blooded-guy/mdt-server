@@ -1,28 +1,18 @@
-module.exports = (app) => {
-  const fyersController = require("../controllers/fyers.controller.js");
+const controller = require("../controllers/fyers.controller.js");
+const { authJwt } = require("../middlewares");
 
-  const router = require("express").Router();
+module.exports = function (app) {
+  app.use(function (req, res, next) {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "x-access-token, Origin, Content-Type, Accept"
+    );
 
-  // Create a new Book
-  router.post("/", fyersController.create);
+    next();
+  });
 
-  // Retrieve all Books
-  router.get("/", fyersController.findAll);
-
-  // Retrieve all published Books
-  router.get("/published", fyersController.findAllPublished);
-
-  // Retrieve a single Book with id
-  router.get("/:id", fyersController.findOne);
-
-  // Update a Book with id
-  router.put("/:id", fyersController.update);
-
-  // Delete a Book with id
-  router.delete("/:id", fyersController.delete);
-
-  // Delete all Books
-  router.delete("/", fyersController.deleteAll);
-
-  app.use("/api/fyers", router);
+  app.post("/api/fyers/link-account", [authJwt.verifyToken], controller.link);
+  app.post("/api/fyers/add-account", [authJwt.verifyToken], controller.create);
+  app.get("/api/fyers/get-account", [authJwt.verifyToken], controller.find);
+  app.post("/api/fyers/profile", [authJwt.verifyToken], controller.profile);
 };

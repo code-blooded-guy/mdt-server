@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.user;
+const Fyers = db.fyers;
 const email = require("./email.controller");
 
 exports.allAccess = (req, res) => {
@@ -7,7 +8,25 @@ exports.allAccess = (req, res) => {
 };
 
 exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
+  console.log("userId", req.userId);
+  User.findOne({
+    where: {
+      id: req.userId,
+    },
+    attributes: { exclude: ["password", "otp"] },
+    include: { all: true },
+  })
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(404)
+          .send({ status: false, message: "User Not found." });
+      }
+      res.status(200).send({ status: true, result: user });
+    })
+    .catch((err) => {
+      res.status(500).send({ status: false, message: err.message });
+    });
 };
 
 exports.adminBoard = (req, res) => {
@@ -51,7 +70,6 @@ exports.verify = (req, res) => {
 };
 
 exports.resendOtp = (req, res) => {
-  console.log(req);
   User.findOne({
     where: {
       id: req.userId,

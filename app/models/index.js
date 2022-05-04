@@ -14,8 +14,8 @@ const sequelize = new Sequelize(
       max: config.db.pool.max,
       min: config.db.pool.min,
       acquire: config.db.pool.acquire,
-      idle: config.db.pool.idle
-    }
+      idle: config.db.pool.idle,
+    },
   }
 );
 
@@ -25,20 +25,23 @@ db.Sequelize = Sequelize;
 db.Op = Op;
 db.sequelize = sequelize;
 
-db.books = require("./book.model.js")(sequelize, Sequelize, DataTypes);
+db.angle = require("./angle.model.js")(sequelize, Sequelize, DataTypes);
+db.fyers = require("./fyers.model.js")(sequelize, Sequelize, DataTypes);
 db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
 db.role = require("./role.model.js")(sequelize, Sequelize, DataTypes);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "role_id",
-  otherKey: "user_id"
+  otherKey: "user_id",
 });
 db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "user_id",
-  otherKey: "role_id"
+  otherKey: "role_id",
 });
+
+db.user.hasOne(db.angle);
 
 db.ROLES = ["user", "admin", "moderator"];
 

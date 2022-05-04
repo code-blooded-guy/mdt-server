@@ -29,4 +29,5 @@ module.exports = function (app) {
 
   app.post("/api/user/verify", [authJwt.verifyToken], controller.verify);
   app.get("/api/user/resendotp", [authJwt.verifyToken], controller.resendOtp);
+  app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
 };
