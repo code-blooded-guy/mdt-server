@@ -50,6 +50,13 @@ module.exports = function (app) {
     controller.cancelOrder
   );
 
+  app.post("/api/angle/live_feed", [authJwt.verifyToken], controller.live_feed);
+  app.post(
+    "/api/angle/volume_strategy",
+    [authJwt.verifyToken],
+    controller.volume_strategy
+  );
+
   //   test
   app.get("/api/angle/test", [authJwt.verifyToken], controller.test);
 };
