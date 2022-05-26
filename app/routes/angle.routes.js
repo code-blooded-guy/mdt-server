@@ -54,7 +54,7 @@ module.exports = function (app) {
   app.post(
     "/api/angle/volume_strategy",
     [authJwt.verifyToken],
-    controller.volume_strategy
+    controller.volume_strategy3
   );
 
   //   test
